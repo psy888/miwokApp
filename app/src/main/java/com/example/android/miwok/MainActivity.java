@@ -28,21 +28,42 @@ public class MainActivity extends AppCompatActivity {
 
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
-    }
-    public void openNumberActivity(View view){
-        Intent i = new Intent(this, NumbersActivity.class);
-        startActivity(i);
-    }
-    public void openFamilyActivity(View view){
-        Intent i = new Intent(this, FamilyActivity.class);
-        startActivity(i);
-    }
-    public void openPhrasesActivity(View view){
-        Intent i = new Intent(this, PhrasesActivity.class);
-        startActivity(i);
-    }
-    public void openColorsActivity(View view){
-        Intent i = new Intent(this, ColorsActivity.class);
-        startActivity(i);
+        // find the View that shows the Numbers category
+        View numbers = findViewById(R.id.numbers);
+        //Set a Click listener on that View
+        numbers.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                // Create a new Intent to open the {@link NumbersActivity}
+                Intent numbersActivity = new Intent(getApplicationContext(), NumbersActivity.class);
+                //Start the new Activity
+                startActivity(numbersActivity);
+            }
+        });
+        //phrases
+        View phrases = findViewById(R.id.phrases);
+        phrases.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent phrasesActivity = new Intent(getApplicationContext(),PhrasesActivity.class);
+                startActivity(phrasesActivity);
+            }
+        });
+        View colors = findViewById(R.id.colors);
+        colors.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent colorsActivity = new Intent(getApplicationContext(),ColorsActivity.class);
+                startActivity(colorsActivity);
+            }
+        });
+        View family = findViewById(R.id.family);
+        family.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent familyActivity = new Intent(getApplicationContext(),FamilyActivity.class);
+                startActivity(familyActivity);
+            }
+        });
     }
 }
