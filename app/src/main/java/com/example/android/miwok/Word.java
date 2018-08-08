@@ -3,10 +3,18 @@ package com.example.android.miwok;
 public class Word {
     private String miwokWord;
     private String englishWord;
+    //private Drawable img;
+    private int img;
 
-    public Word (String mi,String english){
-        miwokWord = mi;
-        englishWord = english;
+    public Word (String mi, String english, int img){
+        this.miwokWord = mi;
+        this.englishWord = english;
+        this.img = img;
+    }
+    public Word (String mi, String english){
+        this.miwokWord = mi;
+        this.englishWord = english;
+        this.img = 0;
     }
 
     public String getTranslationWord() {
@@ -17,4 +25,7 @@ public class Word {
         return miwokWord;
     }
 
+    public int getImageResource() {
+        return img;
+    }
 }

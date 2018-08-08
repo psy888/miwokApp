@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -45,6 +46,17 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // Получить объект {@link AndroidFlavor}, расположенный в этой позиции в списке
         Word currentWord = getItem(position);
 
+        // Найти ImageView в макете list_item.xml с идинтификатором imageRes
+        ImageView imgRes = (ImageView) listItemView.findViewById(R.id.image);
+        //int imgRes = R.id.image;
+        // Получить id изображения из текущего объекта и
+        // установить это изображение в ImageView
+        if (currentWord.getImageResource() != 0){
+            imgRes.setImageResource(currentWord.getImageResource());
+        }else{
+            imgRes.setVisibility(View.GONE);
+        }
+
         // Найти TextView в макете list_item.xml с идентификатором miwokWord
         TextView miwokWord = (TextView) listItemView.findViewById(R.id.miwokWord);
         // Получить слово на языке Miwok из текущего объекта Word и
@@ -56,6 +68,7 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // Получить слово на языке Miwok из текущего объекта Word и
         // установите этот текст на имя TextView
         englishWord.setText(currentWord.getTranslationWord());
+
 
         // Возвращает весь макет элемента списка (содержащий 2 TextViews и ImageView)
         // чтобы он отображался в ListView

@@ -34,5 +34,8 @@ public class PhrasesActivity extends AppCompatActivity {
         // Получить ссылку на ListView и прикрепить адаптер к спискуView.
         ListView listView = (ListView) findViewById(R.id.list);
         listView.setAdapter(itemsAdapter);
+
+        // Устанавливаем соответствующий категории цвет для WordList
+        listView.setBackgroundColor(getResources().getColor(R.color.category_phrases));
     }
 }
