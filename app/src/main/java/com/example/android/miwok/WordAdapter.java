@@ -15,16 +15,20 @@ import java.util.ArrayList;
 public class WordAdapter extends ArrayAdapter<Word> {
 //    @NonNull
 //    @Override
+
     /**
      * @context - в какаой активити вставлять макет
      * @array - масив объектов которые нужно отображать в списке
      */
-    public WordAdapter(Activity context, ArrayList<Word> array){
+    private int mCategoryColor;
+
+    public WordAdapter(Activity context, ArrayList<Word> array, int categoryColor) {
         // Здесь мы инициализируем внутреннее хранилище ArrayAdapter для контекста и списка.
         // второй аргумент используется, когда ArrayAdapter заполняет один TextView.
         // Поскольку это настраиваемый адаптер для двух TextViews и ImageView, адаптер не будет
         // использовать этот второй аргумент, поэтому это может быть любое значение. Здесь мы использовали 0.
         super(context,0,array);
+        mCategoryColor = categoryColor;
     }
 
 
@@ -37,6 +41,8 @@ public class WordAdapter extends ArrayAdapter<Word> {
          * @return Вид для позиции в AdapterView.
          **/
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+
+
         // Проверяем, используется ли существующее представление повторно, иначе раздуйте представление
         View listItemView = convertView;
         if(listItemView == null) {
@@ -44,19 +50,19 @@ public class WordAdapter extends ArrayAdapter<Word> {
                     R.layout.list_item, parent, false);
         }
         // Получить объект {@link AndroidFlavor}, расположенный в этой позиции в списке
-        Word currentWord = getItem(position);
+        final Word currentWord = getItem(position);
 
         // Найти ImageView в макете list_item.xml с идинтификатором imageRes
         ImageView imgRes = (ImageView) listItemView.findViewById(R.id.image);
         //int imgRes = R.id.image;
         // Получить id изображения из текущего объекта и
         // установить это изображение в ImageView
-        if (currentWord.getImageResource() != 0){
+        if (currentWord.hasImage()) {
+            imgRes.setVisibility(View.VISIBLE);
             imgRes.setImageResource(currentWord.getImageResource());
         }else{
             imgRes.setVisibility(View.GONE);
         }
-
         // Найти TextView в макете list_item.xml с идентификатором miwokWord
         TextView miwokWord = (TextView) listItemView.findViewById(R.id.miwokWord);
         // Получить слово на языке Miwok из текущего объекта Word и
@@ -69,9 +75,17 @@ public class WordAdapter extends ArrayAdapter<Word> {
         // установите этот текст на имя TextView
         englishWord.setText(currentWord.getTranslationWord());
 
+        View wordsLayout = listItemView.findViewById(R.id.wordsLayout);
+        View soundIco = listItemView.findViewById(R.id.soundIcon);
+
+
+        wordsLayout.setBackgroundResource(mCategoryColor);
+        soundIco.setBackgroundResource(mCategoryColor);
+
 
         // Возвращает весь макет элемента списка (содержащий 2 TextViews и ImageView)
         // чтобы он отображался в ListView
+
         return listItemView;
 
 

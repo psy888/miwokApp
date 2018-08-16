@@ -21,6 +21,6 @@
     <!-- Default screen padding-->
     <dimen name="default_padding">16dp</dimen>
     <!-- Font Size -->
-    <dimen name="largeWord">20sp</dimen>
+    <dimen name="largeWord">18sp</dimen>
     <dimen name="smallWord">16sp</dimen>
 </resources>
