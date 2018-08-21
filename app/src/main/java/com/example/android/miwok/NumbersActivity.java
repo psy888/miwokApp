@@ -53,7 +53,10 @@ public class NumbersActivity extends AppCompatActivity {
                 player.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                        player.release();
+                        if (player != null) {
+                            player.release();
+                            player = null;
+                        }
                     }
                 });
             }
