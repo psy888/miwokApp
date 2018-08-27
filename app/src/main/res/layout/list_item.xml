@@ -20,8 +20,7 @@
         android:layout_gravity="center"
         android:orientation="vertical"
         android:layout_toRightOf="@+id/image"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:background="@drawable/touch_selector">
+        android:paddingLeft="@dimen/activity_horizontal_margin">
         <TextView
             android:layout_width="match_parent"
             android:id="@+id/miwokWord"
