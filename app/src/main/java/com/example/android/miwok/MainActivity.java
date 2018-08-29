@@ -15,54 +15,64 @@
  */
 package com.example.android.miwok;
 
-import android.content.Intent;
+
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
+
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // Set the content of the activity to use the activity_main.xml layout file
         setContentView(R.layout.activity_main);
-        // find the View that shows the Numbers category
-        View numbers = findViewById(R.id.numbers);
-        //Set a Click listener on that View
-        numbers.setOnClickListener(new View.OnClickListener(){
+
+        // Find the view pager that will allow the user to swipe between fragments
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+
+        // Create an adapter that knows which fragment should be shown on each page
+        PagerAdapter adapter = new PagerAdapter(getApplicationContext(), getSupportFragmentManager());
+
+        // Set the adapter onto the view pager
+        viewPager.setAdapter(adapter);
+
+        // Link to xml tab layout
+        final TabLayout tabLayout = (TabLayout) findViewById(R.id.tabLayout);
+        tabLayout.addTab(tabLayout.newTab().setText(adapter.getPageTitle(0)));
+        tabLayout.addTab(tabLayout.newTab().setText(adapter.getPageTitle(1)));
+        tabLayout.addTab(tabLayout.newTab().setText(adapter.getPageTitle(2)));
+        tabLayout.addTab(tabLayout.newTab().setText(adapter.getPageTitle(3)));
+        // Bind tabLayout with ViewPager
+        tabLayout.setupWithViewPager(viewPager);
+
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
-            public void onClick(View v) {
-                // Create a new Intent to open the {@link NumbersActivity}
-                Intent numbersActivity = new Intent(getApplicationContext(), NumbersActivity.class);
-                //Start the new Activity
-                startActivity(numbersActivity);
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+                if (tab.getPosition() == 0) {
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.category_numbers));
+                } else if (tab.getPosition() == 1) {
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.category_family));
+                } else if (tab.getPosition() == 2) {
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.category_colors));
+                } else {
+                    tabLayout.setSelectedTabIndicatorColor(getResources().getColor(R.color.category_phrases));
+                }
+
             }
-        });
-        //phrases
-        View phrases = findViewById(R.id.phrases);
-        phrases.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                Intent phrasesActivity = new Intent(getApplicationContext(),PhrasesActivity.class);
-                startActivity(phrasesActivity);
+            public void onTabUnselected(TabLayout.Tab tab) {
+
             }
-        });
-        View colors = findViewById(R.id.colors);
-        colors.setOnClickListener(new View.OnClickListener() {
+
             @Override
-            public void onClick(View v) {
-                Intent colorsActivity = new Intent(getApplicationContext(),ColorsActivity.class);
-                startActivity(colorsActivity);
-            }
-        });
-        View family = findViewById(R.id.family);
-        family.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent familyActivity = new Intent(getApplicationContext(),FamilyActivity.class);
-                startActivity(familyActivity);
+            public void onTabReselected(TabLayout.Tab tab) {
+
             }
         });
     }
